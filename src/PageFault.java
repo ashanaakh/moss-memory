@@ -1,9 +1,3 @@
-/*  It is in this file, specifically the replacePage function that will
-    be called by MemoryManagement when there is a page fault. The
-    users of this program should rewrite PageFault to implement the
-    page replacement algorithm.
-*/
-
 import java.util.ArrayList;
 
 /**
@@ -47,25 +41,25 @@ public class PageFault {
    * @param memory         is the vector which contains the contents of the pages
    *                       in memory being simulated.  mem should be searched to find the
    *                       proper page to remove, and modified to reflect any changes.
-   * @param pageToAddIndex is the requested page which caused the
+   * @param pageToLoadIndex is the requested page which caused the
    *                       page fault.
    * @param controlPanel   represents the graphical element of the
    *                       simulator, and allows one to modify the current display.
    */
 
-    public static int step = 0;
+  public static void replacePage(ArrayList<Page> memory, int pageToLoadIndex, ControlPanel controlPanel) {
 
-  public static void replacePage(ArrayList<Page> memory, int pageToAddIndex, ControlPanel controlPanel) {
-    step++;
-
-    Page pageToAdd = memory.get(pageToAddIndex);
+    Page pageToLoad = memory.get(pageToLoadIndex);
 
     // By default first page in memory will be least recently used
     Page leastRecentlyUsed = memory.get(0);
 
+    pageToLoad.R = 1;
+    // TODO: Fix pageToLoad.M
+
     // Chose Page with min usedAtStep field
     for (Page p : memory) {
-      if (p.usedAtStep < leastRecentlyUsed.usedAtStep) {
+      if (p.lastTouchTime > leastRecentlyUsed.lastTouchTime) {
         leastRecentlyUsed = p;
       }
     }
@@ -73,12 +67,10 @@ public class PageFault {
     int leastRecentlyUsedIndex = memory.indexOf(leastRecentlyUsed);
     controlPanel.removePhysicalPage(leastRecentlyUsedIndex);
 
-    pageToAdd.physical = leastRecentlyUsed.physical;
-    pageToAdd.usedAtStep = step;
+    pageToLoad.physical = leastRecentlyUsed.physical;
 
     leastRecentlyUsed.clear();
 
-    controlPanel.addPhysicalPage(pageToAdd.physical, pageToAddIndex);
-
+    controlPanel.addPhysicalPage(pageToLoadIndex, pageToLoad.physical);
   }
 }

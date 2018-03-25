@@ -301,8 +301,6 @@ public class Kernel extends Thread {
     controlPanel = newControlPanel;
   }
 
-  // TODO: This function is part of future huge refactor of GUI
-  // TODO: It called 64 times
   public void getPage(int pageNum) {
     Page page = memList.get(pageNum);
     controlPanel.paintPage(page);

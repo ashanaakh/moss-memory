@@ -1,16 +1,22 @@
-import java.awt.*;
+import java.awt.Button;
+import java.awt.Frame;
+import java.awt.Label;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Event;
+
 import java.util.ArrayList;
 
 public class ControlPanel extends Frame {
-  Kernel kernel;
+  private Kernel kernel;
 
-  Button runButton = new Button("Run");
-  Button stepButton = new Button("Step");
-  Button resetButton = new Button("Reset");
-  Button exitButton = new Button("Exit");
+  private Button runButton = new Button("Run");
+  private Button stepButton = new Button("Step");
+  private Button resetButton = new Button("Reset");
+  private Button exitButton = new Button("Exit");
 
-  ArrayList<Button> pageButtons = new ArrayList<>();
-  ArrayList<Label> labels = new ArrayList<>();
+  private ArrayList<Button> pageButtons = new ArrayList<>();
+  private ArrayList<Label> labels = new ArrayList<>();
 
   Label statusValueLabel = new Label("STOP", Label.LEFT);
   Label timeValueLabel = new Label("0", Label.LEFT);
@@ -26,10 +32,6 @@ public class ControlPanel extends Frame {
   Label lowValueLabel = new Label("0", Label.LEFT);
   Label highValueLabel = new Label("0", Label.LEFT);
 
-//  public ControlPanel() {
-//    super();
-//  }
-
   public ControlPanel(String title) {
     super(title);
   }
@@ -42,7 +44,7 @@ public class ControlPanel extends Frame {
     setForeground(Color.black);
     setSize(635, 545);
 
-    setFont(new Font("Courier", 0, 12));
+    setFont(new Font("Courier", Font.PLAIN, 12));
 
     runButton.setForeground(Color.blue);
     runButton.setBackground(Color.lightGray);
@@ -76,13 +78,13 @@ public class ControlPanel extends Frame {
     // TODO: Add comment for this code snippet
     for (int i = 0; i < 64; i++) {
       if (i < 32) {
-        labels.get(i).setBounds(70, ((i % 34) + 2) * 15 + 25, 60, 15);
+        labels.get(i).setBounds(70, ((i % 32) + 2) * 15 + 25, 60, 15);
       } else {
-        labels.get(i).setBounds(210, ((i % 34) + 2) * 15 + 25, 60, 15);
+        labels.get(i).setBounds(210, ((i % 32) + 2) * 15 + 25, 60, 15);
       }
 
       labels.get(i).setForeground(Color.red);
-      labels.get(i).setFont(new Font("Courier", 0, 10));
+      labels.get(i).setFont(new Font("Courier", Font.PLAIN, 10));
       add(labels.get(i));
     }
 
@@ -99,7 +101,7 @@ public class ControlPanel extends Frame {
       add(pageButtons.get(i));
     }
 
-    statusValueLabel.setBounds(345, 0 + 25, 100, 15);
+    statusValueLabel.setBounds(345, 25, 100, 15);
     add(statusValueLabel);
 
     timeValueLabel.setBounds(345, 15 + 25, 100, 15);
@@ -227,15 +229,15 @@ public class ControlPanel extends Frame {
   }
 
   public void addPhysicalPage(int pageNum, int physicalPage) {
-    if (physicalPage > 0 && physicalPage < labels.size()) {
-      labels.get(physicalPage).setText("page " + pageNum);
+    if (physicalPage >= 0 && physicalPage < labels.size()) {
+      labels.get(pageNum).setText("page " + physicalPage);
     }
   }
 
   public void removePhysicalPage(int physicalPage) {
     labels.get(physicalPage).setText(null);
 
-    if (physicalPage > 0 && physicalPage < labels.size()) {
+    if (physicalPage >= 0 && physicalPage < labels.size()) {
       labels.get(physicalPage).setText(null);
     }
   }

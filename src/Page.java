@@ -9,7 +9,6 @@ public class Page {
   public int lastTouchTime;
   public long high;
   public long low;
-  public int usedAtStep;
 
   public Page(int id, int physical, byte R, byte M, int inMemTime, int lastTouchTime, long high, long low) {
     this.id = id;
@@ -20,7 +19,6 @@ public class Page {
     this.lastTouchTime = lastTouchTime;
     this.high = high;
     this.low = low;
-    this.usedAtStep = 0;
   }
 
   public void clear() {
