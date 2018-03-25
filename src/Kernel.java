@@ -13,9 +13,6 @@ public class Kernel extends Thread {
 
   private ControlPanel controlPanel;
 
-  // LRU
-//  private Queue<Page> cache = new LinkedList<>();
-
   private ArrayList<Page> memList = new ArrayList<>();
 
   private ArrayList<Command> instructList = new ArrayList<>();
